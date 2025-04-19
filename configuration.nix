@@ -158,6 +158,7 @@ in
 		isNormalUser = true;
 		description = "emiliano";
 		extraGroups = [ "networkmanager" "wheel" ];
+		hashedPassword = "$y$j9T$DToYNAF.Wf1uimfvlvg1b0$jVlLRQezl8rDeL.8I8dw5snfXIBoVVKWo5/hUdoKLr/";
 		packages = with pkgs; [
 			neovim
 		];
