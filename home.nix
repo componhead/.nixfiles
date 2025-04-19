@@ -71,6 +71,33 @@
     # EDITOR = "emacs";
   };
 
+  programs = {
+  	fish = {
+		enable = true;
+	};
+	firefox.enable = true;
+	wezterm = {
+		enable = true;
+		extraConfig = ''
+			return {
+				font = wezterm.font("JetBrains Mono"),
+				     font_size = 16.0,
+				     color_scheme = "Tokyonight Dark",
+				     hide_tab_bar_if_only_one_tab = true,
+				     keys = {
+					     {key="n", mods="SHIFT|CTRL", action="ToggleFullScreen"},
+				     }
+			}
+		'';
+	};
+  }; 
+
+  home.file.".config/fish/config.fish".source =  
+  home.file.".config/wezterm/wezterm.lua".source = ./wezconfig/wezterm.lua;
+  home.file.".config/nvim/init.lua".source = ./vimconfig/init.lua;
+
+  home.stateVersion = "24.11";
+
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 }

@@ -163,31 +163,6 @@ in
 			neovim
 		];
 	};
-	home-manager.users.emi = { pkgs, ... }: {
-		home.packages = [ pkgs.atool pkgs.httpie ];
-    		programs = {
-			fish.enable = true;
-			firefox.enable = true;
-			wezterm = {
-				enable = true;
-				extraConfig = ''
-					return {
-					  	font = wezterm.font("JetBrains Mono"),
-					  	font_size = 16.0,
-					  	color_scheme = "Tokyonight Dark",
-					  	hide_tab_bar_if_only_one_tab = true,
-					  	keys = {
-							{key="n", mods="SHIFT|CTRL", action="ToggleFullScreen"},
-					  	}
-					}
-					'';
-			};
- 		}; 
-
-    		# The state version is required and should stay at the version you
-    		# originally installed.
-    		home.stateVersion = "24.11";
-  	};
 
 	programs = {
 		# Some programs need SUID wrappers, can be configured further or are
@@ -217,7 +192,6 @@ in
 		ripgrep
 		sd
 		pinentry
-		fish
 		jq
 		docker
 		wezterm
@@ -225,6 +199,9 @@ in
 		zip
 		unzip
 	];
+	environment.shells = with pkgs; [ zsh fish ];
+	users.default.userShell = pkgs.fish;
+	programs.fish.enable = true;
 
 	# List services that you want to enable:
 	
