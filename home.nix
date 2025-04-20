@@ -67,6 +67,11 @@
   #
   #  /etc/profiles/per-user/emi/etc/profile.d/hm-session-vars.sh
   #
+  nix = {
+  	package = pkgs.nix;
+	settings.experimental-features = [ "nix-command" "flakes" ];
+  };
+  
   home.sessionVariables = {
     # EDITOR = "emacs";
   };
@@ -92,11 +97,11 @@
 	};
   }; 
 
-  home.file.".config/fish/config.fish".source =  
-  home.file.".config/wezterm/wezterm.lua".source = ./wezconfig/wezterm.lua;
-  home.file.".config/nvim/init.lua".source = ./vimconfig/init.lua;
+  # home.file.".config/fish/config.fish".source = ./fishconfig/config.fish;  
+  # home.file.".config/wezterm/wezterm.lua".source = ./wezconfig/wezterm.lua;
+  # home.file.".config/nvim/init.lua".source = ./vimconfig/init.lua;
 
-  home.stateVersion = "24.11";
+  # home.stateVersion = "24.11";
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;

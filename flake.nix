@@ -2,11 +2,11 @@
 	description = "Colossus Flake";
 
 	inputs = {
-		nixpkgs.url = "nixpkgs/nixos-24.11";
-		home-manager.url = "github:nix-community/home-manager/release-24.11";
+		nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-24.11";
+		home-manager.url = "github:nix-community/home-manager?ref=release-24.11";
 		home-manager.inputs.nixpkgs.follows = "nixpkgs";
 		nix-darwin = {
-			url = "github:nix-darwin/nix-darwin/nix-darwin-24.11";
+			url = "github:nix-darwin/nix-darwin?ref=nix-darwin-24.11";
 		};
 	};
 
@@ -19,7 +19,12 @@
 			nixosConfigurations = {
 				colossus = lib.nixosSystem {
 					inherit system;
-					modules = [ ./configuration.nix ];
+					modules = [
+						./configuration.nix
+						({pkgs, ... }: {
+							programs.vim.defaultEditor = true;
+						})
+					];
 				};
 			};
 			homeConfigurations = {

@@ -159,6 +159,7 @@ in
 		description = "emiliano";
 		extraGroups = [ "networkmanager" "wheel" ];
 		hashedPassword = "$y$j9T$DToYNAF.Wf1uimfvlvg1b0$jVlLRQezl8rDeL.8I8dw5snfXIBoVVKWo5/hUdoKLr/";
+		shell = pkgs.fish;
 		packages = with pkgs; [
 			neovim
 		];
@@ -200,8 +201,8 @@ in
 		unzip
 	];
 	environment.shells = with pkgs; [ zsh fish ];
-	users.default.userShell = pkgs.fish;
 	programs.fish.enable = true;
+	programs.neovim.defaultEditor = true;
 
 	# List services that you want to enable:
 	
