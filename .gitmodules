@@ -1,9 +1,0 @@
-[submodule "vimconfig"]
-	path = vimconfig
-	url = git@github.com:componhead/vimconfig.git
-[submodule "private_dotfiles"]
-	path = private_dotfiles
-	url = git@github.com:componhead/private_dotfiles.git
-[submodule "wezconfig"]
-	path = wezconfig
-	url = git@github.com:componhead/wezconfig.git
