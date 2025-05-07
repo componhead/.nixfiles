@@ -1,13 +1,12 @@
 { config, pkgs, ... }:
 
-let
-	home-manager = builtins.fetchTarball https://github.com/nix-community/home-manager/archive/release-24.11.tar.gz;
-in
 {
 	imports = [ # Include the results of the hardware scan.
 		./hardware-configuration.nix
-		(import "${home-manager}/nixos")
 	];
+
+	# Allow unfree packages
+	nixpkgs.config.allowUnfree = true;
 
 	# Bootloader.
 	boot.loader.systemd-boot.enable = true;
@@ -20,22 +19,26 @@ in
 
 	networking.hostName = "colossus"; # Define your hostname.
 
-	programs = {
-		# NixOS has built-in modules to enable 1Password
-		# along with some pre-packaged configuration to make
-		# it work nicely. You can search what options exist
-		# in NixOS at https://search.nixos.org/options
-		
-		# Enables the 1Password CLI
-		_1password = { enable = true; };
+	# { nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
+	# 	"1password"
+	# ];}
 
-		# Enables the 1Password desktop app
-		_1password-gui = {
-			enable = true;
-			# this makes system auth etc. work properly
-			polkitPolicyOwners = [ "emi" ];
-		};
-	};
+	# programs = {
+	# 	# NixOS has built-in modules to enable 1Password
+	# 	# along with some pre-packaged configuration to make
+	# 	# it work nicely. You can search what options exist
+	# 	# in NixOS at https://search.nixos.org/options
+	#
+	# 	# Enables the 1Password CLI
+	# 	_1password = { enable = true; };
+	#
+	# 	# Enables the 1Password desktop app
+	# 	_1password-gui = {
+	# 		enable = true;
+	# 		# this makes system auth etc. work properly
+	# 		polkitPolicyOwners = [ "emi" ];
+	# 	};
+	# };
 
 	# services.your-service = {
 	#      enable = true;
@@ -175,9 +178,6 @@ in
 		};
 	};
 	
-
-	# Allow unfree packages
-	nixpkgs.config.allowUnfree = true;
 
 	# List packages installed in system profile. To search, run:
 	# $ nix search wget
