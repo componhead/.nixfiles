@@ -5,9 +5,13 @@
 		nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
 		home-manager.url = "github:nix-community/home-manager/release-24.11";
 		home-manager.inputs.nixpkgs.follows = "nixpkgs";
+		nixvim = {
+			url = "github:nix-community/nixvim/nixos-24.11";
+			inputs.nixpkgs.follows = "nixpkgs";
+		};
 	};
 
-	outputs = inputs @ { self, nixpkgs, home-manager, ... }:
+	outputs = inputs @ { self, nixpkgs, home-manager, nixvim, ... }:
 		let
 			lib = nixpkgs.lib;
 			system = "x86_64-linux";
@@ -27,7 +31,9 @@
             						{
             							home-manager.useGlobalPkgs = true;
             							home-manager.useUserPackages = true;
-
+								home-manager.sharedModules = [
+									nixvim.homeManagerModules.nixvim
+								];
             							home-manager.extraSpecialArgs = inputs // specialArgs;
             							home-manager.users.${username} = import ./home.nix;
             						}

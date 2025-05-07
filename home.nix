@@ -99,6 +99,10 @@
 			}
 		'';
 	};
+	nixvim = {
+    		enable = true;
+		# more options...
+	};
   }; 
 
   # home.file.".config/fish/config.fish".source = ./fishconfig/config.fish;  
