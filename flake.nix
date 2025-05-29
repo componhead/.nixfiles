@@ -20,7 +20,7 @@
 				neovim = neovim.packages.${system}.neovim;
 			};
 			overlayMyNeovim = prev: final: {
-				myNeovim = import ./packages/myNeovim.nix {
+				myNeovim = import ./packages/vim/myNeovim.nix {
 					pkgs = final;
 				};
 			};
@@ -38,7 +38,7 @@
 			nixosConfigurations = {
 				colossus = let
 					username = "emi";
-					specialArgs = { inherit neovim; };
+					specialArgs = { inherit pkgs; };
 				in
 					lib.nixosSystem {
 						inherit specialArgs;
@@ -51,9 +51,6 @@
             							home-manager.extraSpecialArgs = inputs // specialArgs;
             							home-manager.users.${username} = import ./home.nix;
             						}
-							({pkgs, ... }: {
-								programs.neovim.defaultEditor = true;
-							})
 						];
 					};
 			};
