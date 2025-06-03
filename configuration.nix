@@ -140,9 +140,18 @@
 			#jack.enable = true;
 		};
 
+		pulseaudio.enable = false;
+
 		# Enable the OpenSSH daemon.
-		openssh.enable = true;
-	};
+		openssh = {
+			enable = true;
+			settings = {
+				X11Forwarding = true;
+				PermitRootLogin = "no";
+				PasswordAuthentication = false;
+			};
+			openFirewall = true;
+		};
 
 	# Configure console keymap
 	console.keyMap = "it2";
@@ -150,7 +159,6 @@
 	hardware = {
 		logitech.wireless.enable = true;
 		logitech.wireless.enableGraphical = true;
-		pulseaudio.enable = false;
 		enableRedistributableFirmware = true;
 	};
 
@@ -162,6 +170,8 @@
 		description = "emiliano";
 		extraGroups = [ "networkmanager" "wheel" ];
 		hashedPassword = "$y$j9T$DToYNAF.Wf1uimfvlvg1b0$jVlLRQezl8rDeL.8I8dw5snfXIBoVVKWo5/hUdoKLr/";
+		openssh.authorizedKeys.keys = [
+			"ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCejOsX2ccn0SZW7k4h3hU3z1I8e8gUEzenH9C2XXRIrhNgSykATcVWwRIONdj6Gwh5/EzoYlD/ZSSCIdnOmEebkmvRlpUau9K/IRJf3jnjNQxkdNb3QaRARuVMLPixT0BXR+/lj1UhVFCcIPKYraAb8mjgX+Q4cPvVtgqC+ybE0wg13PxScToMgPQeiB+hUE/8HHBadKsGJ4DMbF6/C3JBwUId9QrNgGB9BWw/hspQQ+SRM0uBBZzSlGGSOEIPQqTI5okGKSV7aS9L+WLHYxmSGv5SQ7921bMTWGYTszUrmErNqH+hyqCDW1aWv0bgvWM1rVWj5vCn8dfs3gPYfeMf"]
 		shell = pkgs.fish;
 		packages = with pkgs; [
 			neovim
@@ -199,6 +209,10 @@
 		pandoc
 		zip
 		unzip
+		(discord.override {
+			withOpenASAR = true;
+			withVencord = true;
+		})
 	];
 	environment.shells = with pkgs; [ zsh fish ];
 	programs.fish.enable = true;

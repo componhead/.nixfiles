@@ -31,14 +31,14 @@
 		in {
 			nixpkgs.config.allowUnfree = true;
 			packages.${system}.default = neovim.packages.${system}.neovim;
-			apps.${system}.default = {
-				type = "app";
-				program = "${neovim.packages.x86_64-linux.neovim}/bin/nvim";
-			};
+			# apps.${system}.default = {
+			# 	type = "app";
+			# 	program = "${neovim.packages.x86_64-linux.neovim}/bin/nvim";
+			# };
 			nixosConfigurations = {
 				colossus = let
 					username = "emi";
-					specialArgs = { inherit pkgs; };
+					specialArgs = { inherit nixpkgs; };
 				in
 					lib.nixosSystem {
 						inherit specialArgs;
