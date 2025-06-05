@@ -41,7 +41,6 @@
 					specialArgs = { inherit pkgs; };
 				in
 					lib.nixosSystem {
-						inherit specialArgs;
 						modules = [
 							./configuration.nix
 							home-manager.nixosModules.home-manager
